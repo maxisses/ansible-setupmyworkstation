@@ -1,0 +1,10 @@
+- hosts: maxlocalpc
+  become: true
+  tasks:
+  - name: 
+  # - name: install nvidia container toolkit
+
+  # - name: install nvidia container runtime
+
+
+  

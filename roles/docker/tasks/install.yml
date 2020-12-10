@@ -1,0 +1,48 @@
+- name: Ensure required packages for docker are installed
+  apt:
+    update_cache: yes
+    force: yes
+    name: ['apt-transport-https', 'ca-certificates', 'curl','gnupg-agent', 'software-properties-common']
+    state: present
+  become: true
+
+- name: Ensure docker repository key is imported
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  become: true
+
+- name: Ensure docker repository is added
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+    filename: "bintray.rabbitmq"
+    update_cache: yes
+    state: present
+  become: true
+
+- name: Ensure docker-ce is installed
+  apt:    
+    name: "docker-ce=18.06.0~ce~3-0~ubuntu"
+    update_cache: yes
+    force: yes
+    state: present
+  become: true
+  
+- name: Ensure specific users are added to "docker" group
+  user:
+    name: "{{ ansible_user }}"
+    groups: "docker"
+    append: True
+  become: true
+  
+- name: Ensure python-pip is installed
+  apt:
+    name: python-pip
+    state: present
+  become: true
+
+- name: Ensure docker-py is installed
+  pip:
+    name: docker-py
+    state: present
+  become: true
