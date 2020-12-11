@@ -1,0 +1,10 @@
+- hosts: external
+  become: true
+  tasks:
+  - name: 
+  # - name: sudo apt-get install xorgxrdp-hwe-18.04
+
+  # - name: sudo apt-get install ubuntu-gnome-desktop
+
+  - name:
+    command: sudo sed -i 's/allowed_users=console/allowed_users=anybody/' /etc/X11/Xwrapper.config

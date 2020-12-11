@@ -1,0 +1,31 @@
+  - name: get install script for ibmcloudcli
+    become: true
+    get_url: 
+      url: https://clis.cloud.ibm.com/install/linux
+      dest: /tmp/ibmcloudcli-installer.sh
+
+  - name: give permission
+    become: true
+    file:
+      path: /tmp/ibmcloudcli-installer.sh
+      owner: "{{ user }}"
+      mode: '777'
+  
+  - name: Execute the ibmcloudcli-installer
+    shell: /tmp/ibmcloudcli-installer.sh
+
+  - name: Remove the installer.sh
+    file: 
+      path: /tmp/ibmcloudcli-installer.sh 
+      state: absent
+  
+  # - name: give permission
+  #   become: true
+  #   file:
+  #     path: roles/ibmcloudcli/install_plugins.sh
+  #     owner: "{{ user }}"
+  #     mode: '777'
+  
+  - name: install plugins
+    script: roles/ibmcloudcli/install_plugins.sh
+

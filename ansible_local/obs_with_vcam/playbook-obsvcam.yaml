@@ -32,7 +32,7 @@
       owner: "{{ ansible_user }}"
       mode: '777'
   
-  - name: Creates directory
+  - name: Ensure directory is created
     file:
       path: codev4l2sink
       state: directory

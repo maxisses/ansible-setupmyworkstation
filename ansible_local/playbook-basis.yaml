@@ -7,6 +7,14 @@
     community.general.snap:
       name: code
       classic: yes
+  
+  - name: Ensure installation of zsh
+    import_role:
+      name: ohmyzsh
+    tags: ohmyzsh
+  
+  - name: Ensure installation of ohmyzsh
+    command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   - name: Install Docker
     import_role:

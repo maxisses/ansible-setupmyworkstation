@@ -1,0 +1,24 @@
+  - name: get install script for install-ohmy
+    become: true
+    get_url: 
+      url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+      dest: /tmp/install-ohmy.sh
+
+  - name: give permission
+    become: true
+    file:
+      path: /tmp/install-ohmy.sh
+      owner: maxisses
+      mode: '777'
+  
+  - name: Execute the install-ohmy install script
+    shell: /tmp/install-ohmy.sh
+
+  - name: Remove the installer.sh
+    file: 
+      path: /tmp/install-ohmy.sh
+      state: absent
+  
+  - name: make it standard
+    command: chsh -s /usr/bin/zsh
+    become: true

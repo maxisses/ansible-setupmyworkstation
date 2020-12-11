@@ -2,3 +2,4 @@ obs-studio
 obs-v4l2sink
 build
 codev4l2sink
+v4l2loopback

@@ -1,0 +1,30 @@
+- name: Initial Setup
+  vars_prompt:
+    - name: "ansible_ssh_pass"
+      prompt: "root password for remote connection?"
+      private: yes
+  hosts: external
+  tasks:
+    - include_vars:
+        file: creds.yml
+    - name: Create "{{ user }}" User
+      user:
+        name: "{{ user }}"
+        state: present
+    - name: Add "{{ user }}" to sudoers
+      lineinfile:
+        path: /etc/sudoers.d/"{{ user }}"
+        line: "'{{ user }}'        ALL=(ALL)       NOPASSWD: ALL"
+        state: present
+        create: true
+    - name: Set authorized key
+      authorized_key:
+        user: "{{ user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    - name: update apt list
+      command: sudo apt update
+
+
+
+  

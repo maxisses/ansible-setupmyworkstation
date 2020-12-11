@@ -1,0 +1,50 @@
+- hosts: external
+  become: true
+  vars:
+  - apt_file: /etc/apt/sources.list.d/google-chrome.list
+  tasks:
+  - include_vars:
+      file: creds.yml
+  - name: Install VSCode   
+    community.general.snap:
+      name: code
+      classic: yes
+
+  - name: Install Docker
+    import_role:
+      name: docker
+    tags: docker
+  
+  - name: Install terraform
+    import_role:
+      name: terraform
+    tags: terraform
+
+  - name: Install kubectl   
+    community.general.snap:
+      name: kubectl
+      classic: yes
+
+  - name: Install ibmcloudcli
+    import_role:
+      name: ibmcloudcli
+    tags: ibmcloudcli
+
+  - name: Install Helm  
+    community.general.snap:
+      name: helm
+      classic: yes
+  
+  - name: Install Node 
+    community.general.snap:
+      name: node
+      classic: yes
+  
+  - name: Install Chrome Browser
+    import_role:
+      name: chrome
+    tags: chrome
+
+
+
+  

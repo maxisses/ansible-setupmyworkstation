@@ -1,0 +1,12 @@
+[setup:children]
+local
+external
+
+
+[local]
+# maxlocalpc ansible_connection=local
+
+
+[external]
+bamf-vm00 ansible_connection=ssh ansible_host=158.177.43.116
+
